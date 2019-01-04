@@ -1,5 +1,5 @@
 {
-  "name": "rolling-window",
+  "name": "@shuhei/rolling-window",
   "version": "0.0.1",
   "description": "A rolling time window",
   "main": "index.js",

@@ -7,7 +7,7 @@ See [rolling-metrics' documentation](https://github.com/vladimir-bukhtoyarov/rol
 ## Install
 
 ```sh
-npm install -S hdr-histogram-js rolling-window
+npm install -S hdr-histogram-js @shuhei/rolling-window
 ```
 
 ## Usage
