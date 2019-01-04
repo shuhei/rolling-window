@@ -1,5 +1,7 @@
 # rolling-window
 
+[![npm version](https://badge.fury.io/js/%40shuhei%2Fpollen.svg)](https://badge.fury.io/js/%40shuhei%2Frolling-window)
+
 Implements "Reset reservoir periodically by chunks" strategy for [hdr-histogram-js](https://github.com/HdrHistogram/HdrHistogramJS).
 
 See [rolling-metrics' documentation](https://github.com/vladimir-bukhtoyarov/rolling-metrics/blob/master/histograms.md) for why it's necessary.
