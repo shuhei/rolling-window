@@ -7,6 +7,7 @@ class RollingWindow {
   } = {}) {
     assert(numChunks > 0, "numChunks must be more than 0");
     assert(timeWindow > 0, "timeWindow must be more than 0");
+
     this.chunks = Array(numChunks + 1).fill().map(() => buildChunk());
     this.pos = 0;
 
@@ -29,9 +30,11 @@ class RollingWindow {
   getSnapshot(givenSnapshot) {
     let snapshot;
     if (givenSnapshot) {
+      // Allow users to provide a snapshot. This is useful to save memory
+      // by reusing one histogram when there are many `RollingWindow`s.
       snapshot = givenSnapshot;
     } else {
-      // Create a snapshot on demand.
+      // Create a snapshot on demand to save memory.
       if (!this.snapshot) {
         this.snapshot = this.buildChunk();
       }
