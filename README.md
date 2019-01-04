@@ -14,7 +14,7 @@ npm install -S hdr-histogram-js @shuhei/rolling-window
 
 ```js
 const { build } = require("hdr-histogram-js");
-const RollingWindow = require("rolling-window");
+const RollingWindow = require("@shuhei/rolling-window");
 
 const buildSnapshot = () => build({ /* Your favorite options */ });
 
