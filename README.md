@@ -24,6 +24,7 @@ const rollingWindow = new RollingWindow(buildSnapshot, {
   timeWindow: 1000 * 60,
   numChunks: 6
 });
+rollingWindow.start();
 
 // Record a value
 rollingWindow.recordValue(value);
