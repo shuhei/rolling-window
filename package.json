@@ -1,0 +1,19 @@
+{
+  "name": "rolling-window",
+  "version": "0.0.1",
+  "description": "A rolling time window",
+  "main": "index.js",
+  "author": "Shuhei Kagawa <shuhei.kagawa@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "hdr-histogram-js": "^1.0.0"
+  },
+  "devDependencies": {
+    "hdr-histogram-js": "^1.1.4",
+    "jest": "^23.6.0"
+  },
+  "scripts": {
+    "test": "jest",
+    "tdd": "jest --watch"
+  }
+}
