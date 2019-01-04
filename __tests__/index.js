@@ -1,28 +1,39 @@
 const { build } = require("hdr-histogram-js");
 const RollingWindow = require("..");
 
-it("should keep (numChunks + 1) chunks", () => {
-  const rolling = new RollingWindow(() => build(), {
-    numChunks: 3
-  });
+let rolling;
 
-  // The first two chunks should be cleared.
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  rolling.stop();
+  jest.useRealTimers();
+});
+
+it("should keep (numChunks + 1) chunks", () => {
+  const numChunks = 3;
+  const timeWindow = 1000 * 60;
+  const chunkWindow = timeWindow / numChunks;
+  rolling = new RollingWindow(build, {
+    numChunks,
+    timeWindow
+  });
+  rolling.start();
+
   rolling.recordValue(1);
-  rolling.rotate();
+  jest.advanceTimersByTime(chunkWindow);
   rolling.recordValue(2);
-  rolling.rotate();
+  jest.advanceTimersByTime(chunkWindow);
   rolling.recordValue(4);
-  rolling.rotate();
+  jest.advanceTimersByTime(chunkWindow);
   rolling.recordValue(8);
-  rolling.rotate();
+  jest.advanceTimersByTime(chunkWindow);
   rolling.recordValue(16);
-  rolling.rotate();
+  jest.advanceTimersByTime(chunkWindow);
   rolling.recordValue(32);
 
   const snapshot = rolling.getSnapshot();
   expect(snapshot.getTotalCount()).toBe(4);
-  expect(snapshot.getValueAtPercentile(0)).toBe(4);
-  expect(snapshot.getValueAtPercentile(30)).toBe(8);
-  expect(snapshot.getValueAtPercentile(60)).toBe(16);
-  expect(snapshot.getValueAtPercentile(100)).toBe(32);
 });

@@ -9,8 +9,10 @@ class RollingWindow {
     assert(timeWindow > 0, "timeWindow must be more than 0");
     this.chunks = Array(numChunks + 1).fill().map(() => buildChunk());
     this.pos = 0;
+
     this.timeWindow = timeWindow;
     this.buildChunk = buildChunk;
+    this.numChunks = numChunks;
 
     this.rotate = this.rotate.bind(this);
   }
@@ -44,7 +46,7 @@ class RollingWindow {
 
   start() {
     if (!this.timer) {
-      this.timer = setInterval(this.rotate, timeWindow / numChunks);
+      this.timer = setInterval(this.rotate, this.timeWindow / this.numChunks);
       this.timer.unref();
     }
   }
