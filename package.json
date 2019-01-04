@@ -15,5 +15,8 @@
   "scripts": {
     "test": "jest",
     "tdd": "jest --watch"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
