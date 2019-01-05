@@ -1,5 +1,7 @@
 # rolling-window
 
+[![CircleCI](https://circleci.com/gh/shuhei/rolling-window.svg?style=svg)](https://circleci.com/gh/shuhei/rolling-window)
+[![codecov](https://codecov.io/gh/shuhei/rolling-window/branch/master/graph/badge.svg)](https://codecov.io/gh/shuhei/rolling-window)
 [![npm version](https://badge.fury.io/js/%40shuhei%2Frolling-window.svg)](https://badge.fury.io/js/%40shuhei%2Frolling-window)
 
 Implements "Reset reservoir periodically by chunks" strategy for [hdr-histogram-js](https://github.com/HdrHistogram/HdrHistogramJS).
