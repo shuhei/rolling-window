@@ -51,7 +51,7 @@ Starts the rotation timer.
 
 ### rollingWindow.stop()
 
-Stop the timer timer. When you stop using a rolling window, make sure to call this method to avoid memory leak.
+Stop the rotation timer. When you stop using a rolling window, make sure to call this method to avoid memory leak.
 
 ### rollingWindow.recordValue(value)
 
