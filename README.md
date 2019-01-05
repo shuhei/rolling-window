@@ -4,9 +4,9 @@
 [![codecov](https://codecov.io/gh/shuhei/rolling-window/branch/master/graph/badge.svg)](https://codecov.io/gh/shuhei/rolling-window)
 [![npm version](https://badge.fury.io/js/%40shuhei%2Frolling-window.svg)](https://badge.fury.io/js/%40shuhei%2Frolling-window)
 
-Implements "Reset reservoir periodically by chunks" strategy for [hdr-histogram-js](https://github.com/HdrHistogram/HdrHistogramJS).
+Implements "Reset reservoir periodically by chunks" strategy to use [hdr-histogram-js](https://github.com/HdrHistogram/HdrHistogramJS) for monitoring. Inspired by [vladimir-bukhtoyarov/rolling-metrics](https://github.com/vladimir-bukhtoyarov/rolling-metrics).
 
-See [rolling-metrics' documentation](https://github.com/vladimir-bukhtoyarov/rolling-metrics/blob/master/histograms.md) for why it's necessary.
+See [rolling-metrics' documentation](https://github.com/vladimir-bukhtoyarov/rolling-metrics/blob/master/histograms.md) for the background.
 
 ## Install
 
@@ -17,16 +17,16 @@ npm install -S hdr-histogram-js @shuhei/rolling-window
 ## Usage
 
 ```js
-const { build } = require("hdr-histogram-js");
 const RollingWindow = require("@shuhei/rolling-window");
 
-const buildSnapshot = () => build({ /* Your favorite options */ });
-
-const rollingWindow = new RollingWindow(buildSnapshot, {
+// This configuration creates 7 chunks (6 + 1) and rotates chunks one by one
+// in each 10 seconds. `getSnapshot()` returns a histogram of the last 60 to 70
+// seconds. These additional 0 to 10 seconds make sure that the rolling window
+// can provide a fresh histogram without losing any records at any given time.
+const rollingWindow = new RollingWindow({
   timeWindow: 1000 * 60,
-  numChunks: 6
+  numChunks: 6,
 });
-rollingWindow.start();
 
 // Record a value
 rollingWindow.recordValue(value);
@@ -38,12 +38,12 @@ const p99 = snapshot.getValueAtPercentile(99);
 
 ## API
 
-### new RollingWindow(buildHistogram[, options])
+### new RollingWindow([options])
 
-- `buildHistogram: () => Histogram` A factory function to create a histogram. This will be called multiple times to prepare necessary histograms in the rolling window.
 - `options`
   - `timeWindow: number` The length of a time window in milliseconds. **Default: `60000`**
   - `numChunks: number` The number of chunks in the time window. **Default: `6`**
+  - `buildHistogram: () => Histogram` A factory function to create a histogram. This will be called multiple times to prepare necessary histograms in the rolling window. Use this to provide custom options to histograms. **Default: `build` from `hdr-histogram-js`**
 
 Creates a rolling window with `numChunks + 1` histograms in it and starts rotating chunks with an interval of `timeWindow / numChunks`.
 
