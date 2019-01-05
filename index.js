@@ -1,21 +1,25 @@
+const { build } = require("hdr-histogram-js");
 const assert = require("assert");
 
 class RollingWindow {
-  constructor(buildChunk, {
+  constructor({
     numChunks = 6,
     timeWindow = 1000 * 60,
+    buildHistogram = build
   } = {}) {
     assert(numChunks > 0, "numChunks must be more than 0");
     assert(timeWindow > 0, "timeWindow must be more than 0");
+    assert.equal(typeof buildHistogram, "function", "buildHistogram must be a function");
 
-    this.chunks = Array(numChunks + 1).fill().map(() => buildChunk());
-    this.pos = 0;
-
+    this.buildHistogram = buildHistogram;
     this.timeWindow = timeWindow;
-    this.buildChunk = buildChunk;
     this.numChunks = numChunks;
 
+    this.chunks = Array(numChunks + 1).fill().map(() => buildHistogram());
+    this.pos = 0;
     this.rotate = this.rotate.bind(this);
+
+    this.start();
   }
 
   rotate() {
@@ -36,7 +40,7 @@ class RollingWindow {
     } else {
       // Create a snapshot on demand to save memory.
       if (!this.snapshot) {
-        this.snapshot = this.buildChunk();
+        this.snapshot = this.buildHistogram();
       }
       snapshot = this.snapshot;
     }

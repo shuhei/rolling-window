@@ -45,11 +45,7 @@ const p99 = snapshot.getValueAtPercentile(99);
   - `timeWindow: number` The length of a time window in milliseconds. **Default: `60000`**
   - `numChunks: number` The number of chunks in the time window. **Default: `6`**
 
-Creates a rolling window with `numChunks + 1` histograms in it.
-
-### rollingWindow.start()
-
-Starts the rotation timer.
+Creates a rolling window with `numChunks + 1` histograms in it and starts rotating chunks with an interval of `timeWindow / numChunks`.
 
 ### rollingWindow.stop()
 

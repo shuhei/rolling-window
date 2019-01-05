@@ -17,11 +17,10 @@ describe("rotation with timer", () => {
     const numChunks = 3;
     const timeWindow = 1000 * 60;
     const chunkWindow = timeWindow / numChunks;
-    rolling = new RollingWindow(build, {
+    rolling = new RollingWindow({
       numChunks,
       timeWindow
     });
-    rolling.start();
 
     rolling.recordValue(1);
     jest.advanceTimersByTime(chunkWindow);
@@ -46,12 +45,12 @@ describe("rotation with timer", () => {
 
 describe("getSnapshot", () => {
   it("should reuse the same snapshot", () => {
-    rolling = new RollingWindow(build);
+    rolling = new RollingWindow();
 
     rolling.recordValue(1);
-    rolling.rotate();
+    jest.runOnlyPendingTimers();
     rolling.recordValue(10);
-    rolling.rotate();
+    jest.runOnlyPendingTimers();
     rolling.recordValue(100);
 
     const snapshot1 = rolling.getSnapshot();
@@ -65,12 +64,12 @@ describe("getSnapshot", () => {
   });
 
   it("should use the given snapshot", () => {
-    rolling = new RollingWindow(build);
+    rolling = new RollingWindow();
 
     rolling.recordValue(1);
-    rolling.rotate();
+    jest.runOnlyPendingTimers();
     rolling.recordValue(10);
-    rolling.rotate();
+    jest.runOnlyPendingTimers();
     rolling.recordValue(100);
 
     const snapshot = build();
