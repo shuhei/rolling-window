@@ -19,10 +19,11 @@ npm install -S hdr-histogram-js @shuhei/rolling-window
 ```js
 const RollingWindow = require("@shuhei/rolling-window");
 
-// This configuration creates 7 chunks (6 + 1) and rotates chunks one by one
-// in each 10 seconds. `getSnapshot()` returns a histogram of the last 60 to 70
-// seconds. These additional 0 to 10 seconds make sure that the rolling window
-// can provide a fresh histogram without losing any records at any given time.
+// This configuration creates 7 internal histograms (6 + 1) and rotates them
+// one by one in each 10 seconds. `getSnapshot()` returns a histogram of the
+// last 60 to 70 seconds. These additional 0 to 10 seconds make sure that the
+// rolling window can provide a fresh histogram without losing any records at
+// any given time.
 const rollingWindow = new RollingWindow({
   timeWindow: 1000 * 60,
   numChunks: 6,
