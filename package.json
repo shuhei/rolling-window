@@ -9,12 +9,14 @@
     "hdr-histogram-js": "^1.0.0"
   },
   "devDependencies": {
+    "codecov": "^3.1.0",
     "hdr-histogram-js": "^1.1.4",
     "jest": "^23.6.0"
   },
   "scripts": {
     "test": "jest",
-    "tdd": "jest --watch"
+    "tdd": "jest --watch",
+    "ci": "jest --coverage && codecov"
   },
   "publishConfig": {
     "access": "public"
