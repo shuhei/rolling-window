@@ -33,3 +33,31 @@ rollingWindow.recordValue(value);
 const snapshot = rollingWindow.getSnapshot();
 const p99 = snapshot.getValueAtPercentile(99);
 ```
+
+## API
+
+### new RollingWindow(buildHistogram[, options])
+
+- `buildHistogram: () => Histogram` A factory function to create a histogram. This will be called multiple times to prepare necessary histograms in the rolling window.
+- `options`
+  - `timeWindow: number` The length of a time window in milliseconds. **Default: `60000`**
+  - `numChunks: number` The number of chunks in the time window. **Default: `6`**
+
+Creates a rolling window with `numChunks + 1` histograms in it.
+
+### rollingWindow.start()
+
+Starts the rotation timer.
+
+### rollingWindow.stop()
+
+Stop the timer timer. When you stop using a rolling window, make sure to call this method to avoid memory leak.
+
+### rollingWindow.recordValue(value)
+
+- `value: number` A numerical value to record. It must not be negative.
+
+### rollingWindow.getSnapshot([snapshot])
+
+- `snapshot: Histogram` A histogram to accumulate histograms. It is reset before accumulating histograms. If this is not provided, a `Histogram` is created and kept for reuse.
+- Returns: `Histogram`
