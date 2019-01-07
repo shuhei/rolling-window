@@ -1,6 +1,6 @@
 {
   "name": "@shuhei/rolling-window",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A rolling time window",
   "main": "index.js",
   "author": "Shuhei Kagawa <shuhei.kagawa@gmail.com>",
