@@ -54,7 +54,9 @@ class RollingWindow {
   start() {
     if (!this.timer) {
       this.timer = setInterval(this.rotate, this.timeWindow / this.numChunks);
-      this.timer.unref();
+      if (typeof this.timer.unref === 'function') {
+        this.timer.unref();
+      }
     }
   }
 
