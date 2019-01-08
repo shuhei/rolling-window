@@ -1,5 +1,5 @@
 const { build } = require("hdr-histogram-js");
-const RollingWindow = require("..");
+const Histogram = require("../Histogram");
 
 let rolling;
 
@@ -17,7 +17,7 @@ describe("rotation with timer", () => {
     const numChunks = 3;
     const timeWindow = 1000 * 60;
     const chunkWindow = timeWindow / numChunks;
-    rolling = new RollingWindow({
+    rolling = new Histogram({
       numChunks,
       timeWindow
     });
@@ -45,7 +45,7 @@ describe("rotation with timer", () => {
 
 describe("getSnapshot", () => {
   it("should reuse the same snapshot", () => {
-    rolling = new RollingWindow();
+    rolling = new Histogram();
 
     rolling.recordValue(1);
     jest.runOnlyPendingTimers();
@@ -64,7 +64,7 @@ describe("getSnapshot", () => {
   });
 
   it("should use the given snapshot", () => {
-    rolling = new RollingWindow();
+    rolling = new Histogram();
 
     rolling.recordValue(1);
     jest.runOnlyPendingTimers();

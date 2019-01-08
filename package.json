@@ -2,7 +2,7 @@
   "name": "@shuhei/rolling-window",
   "version": "0.1.2",
   "description": "A rolling time window",
-  "main": "histogram.js",
+  "main": "index.js",
   "author": "Shuhei Kagawa <shuhei.kagawa@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
