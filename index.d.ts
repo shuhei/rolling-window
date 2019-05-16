@@ -7,8 +7,8 @@ export interface RollingWindowOptions {
     buildHistogram: () => Snapshot;
 }
 
-declare class RollingWindow {
-    constructor(options?: RollingWindowOptions) {}
+export class RollingWindow {
+    constructor(options?: RollingWindowOptions)
 
     /**
      * Rotate the rolling window positions
@@ -36,5 +36,3 @@ declare class RollingWindow {
      */
     stop()
 }
-
-export = RollingWindow;
