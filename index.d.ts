@@ -3,7 +3,7 @@ type Snapshot = object;
 
 export interface RollingWindowOptions {
     numChunks: number;
-    timeWindow: Time;
+    timeWindow: TimeWindow;
     buildHistogram: () => Snapshot;
 }
 
