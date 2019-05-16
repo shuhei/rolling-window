@@ -1,24 +1,36 @@
 type TimeWindow = number; // e.g. 60 * 1000
-type Snapshot = object;
+
+interface Snapshot {
+    /**
+     * Reset the snapshot
+     */
+    reset();
+
+    /**
+     * 
+     * @param snapshot Append chunks of snapshot to the snapshot
+     */
+    add(snapshot: Snapshot);
+}
 
 export interface RollingWindowOptions {
-    numChunks: number;
-    timeWindow: TimeWindow;
-    buildHistogram: () => Snapshot;
+    numChunks?: number;
+    timeWindow?: TimeWindow;
+    buildHistogram?: () => Snapshot;
 }
 
 export class RollingWindow {
-    constructor(options?: RollingWindowOptions)
+    constructor(options?: RollingWindowOptions);
 
     /**
      * Rotate the rolling window positions
      */
-    rotate()
+    rotate();
 
     /**
      * Record value for the current window
      */
-    recordValue(value: number)
+    recordValue(value: number);
 
     /**
      * Get the snapshot for the current window
@@ -29,10 +41,10 @@ export class RollingWindow {
     /**
      * Start the rolling window
      */
-    start()
+    start();
 
     /**
      * Stop the rolling window
      */
-    stop()
+    stop();
 }
