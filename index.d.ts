@@ -25,7 +25,7 @@ export class RollingWindow {
      * Get the histogram for the current window
      * @param histogram Optional histogram if provided
      */
-    getSnapshot(histogram: AbstractHistogram): AbstractHistogram;
+    getSnapshot(histogram?: AbstractHistogram): AbstractHistogram;
 
     /**
      * Start the rolling window
