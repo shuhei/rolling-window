@@ -1,22 +1,11 @@
+import { AbstractHistogram } from "hdr-histogram-js";
+
 type TimeWindow = number; // e.g. 60 * 1000
-
-interface Snapshot {
-    /**
-     * Reset the snapshot
-     */
-    reset();
-
-    /**
-     * 
-     * @param snapshot Append chunks of snapshot to the snapshot
-     */
-    add(snapshot: Snapshot);
-}
 
 export interface RollingWindowOptions {
     numChunks?: number;
     timeWindow?: TimeWindow;
-    buildHistogram?: () => Snapshot;
+    buildHistogram?: () => AbstractHistogram;
 }
 
 export class RollingWindow {
@@ -25,26 +14,26 @@ export class RollingWindow {
     /**
      * Rotate the rolling window positions
      */
-    rotate();
+    rotate(): void;
 
     /**
      * Record value for the current window
      */
-    recordValue(value: number);
+    recordValue(value: number): void;
 
     /**
-     * Get the snapshot for the current window
-     * @param snapshot Optional snapshot if provided
+     * Get the histogram for the current window
+     * @param histogram Optional histogram if provided
      */
-    getSnapshot(snapshot: Snapshot): Snapshot;
+    getSnapshot(histogram: AbstractHistogram): AbstractHistogram;
 
     /**
      * Start the rolling window
      */
-    start();
+    start(): void;
 
     /**
      * Stop the rolling window
      */
-    stop();
+    stop(): void;
 }
