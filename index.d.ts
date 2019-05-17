@@ -2,13 +2,13 @@ import { AbstractHistogram } from "hdr-histogram-js";
 
 type TimeWindow = number; // e.g. 60 * 1000
 
-export interface RollingWindowOptions {
+declare interface RollingWindowOptions {
     numChunks?: number;
     timeWindow?: TimeWindow;
     buildHistogram?: () => AbstractHistogram;
 }
 
-export class RollingWindow {
+declare class RollingWindow {
     constructor(options?: RollingWindowOptions);
 
     /**
@@ -37,3 +37,6 @@ export class RollingWindow {
      */
     stop(): void;
 }
+
+export { RollingWindowOptions };
+export default RollingWindow;
