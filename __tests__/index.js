@@ -85,3 +85,13 @@ describe("getSnapshot", () => {
     expect(snapshot2.getTotalCount()).toBe(4);
   });
 });
+
+describe("ES module interop", () => {
+  it("should claim to be an ES module", () => {
+    expect(RollingWindow.__esModule).toBe(true);
+  });
+
+  it("should have itself as a default property", () => {
+    expect(RollingWindow.default).toBe(RollingWindow);
+  });
+});
