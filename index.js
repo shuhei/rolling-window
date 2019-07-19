@@ -68,4 +68,10 @@ class RollingWindow {
   }
 }
 
+// Make TypeScript users believe that this package is an ES module with a default export
+// regardless of `--esModuleInterop`.
+// https://github.com/shuhei/rolling-window/issues/5
+Object.defineProperty(module.exports, "__esModule", { value: true });
+RollingWindow.default = RollingWindow;
+
 module.exports = RollingWindow;
