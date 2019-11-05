@@ -9,13 +9,19 @@ class RollingWindow {
   } = {}) {
     assert(numChunks > 0, "numChunks must be more than 0");
     assert(timeWindow > 0, "timeWindow must be more than 0");
-    assert.equal(typeof buildHistogram, "function", "buildHistogram must be a function");
+    assert.equal(
+      typeof buildHistogram,
+      "function",
+      "buildHistogram must be a function"
+    );
 
     this.buildHistogram = buildHistogram;
     this.timeWindow = timeWindow;
     this.numChunks = numChunks;
 
-    this.chunks = Array(numChunks + 1).fill().map(() => buildHistogram());
+    this.chunks = Array(numChunks + 1)
+      .fill()
+      .map(() => buildHistogram());
     this.pos = 0;
     this.rotate = this.rotate.bind(this);
 
@@ -28,6 +34,8 @@ class RollingWindow {
   }
 
   recordValue(value) {
+    // `Math.floor()` for fixing an issue of min non-zero value aggregation.
+    // https://github.com/shuhei/rolling-window/pull/6
     this.chunks[this.pos].recordValue(Math.floor(value));
   }
 
@@ -54,7 +62,7 @@ class RollingWindow {
   start() {
     if (!this.timer) {
       this.timer = setInterval(this.rotate, this.timeWindow / this.numChunks);
-      if (typeof this.timer.unref === 'function') {
+      if (typeof this.timer.unref === "function") {
         this.timer.unref();
       }
     }
