@@ -122,6 +122,14 @@ describe("getSnapshot", () => {
     const snapshot = rolling.getSnapshot();
     expect(snapshot.minNonZeroValue).toBe(1);
   });
+
+  it("should throw the error from hdr-histogram-js if a negative value is given", () => {
+    rolling = new RollingWindow();
+
+    expect(() => {
+      rolling.recordValue(-2);
+    }).toThrow(new Error("Histogram recorded value cannot be negative."));
+  });
 });
 
 describe("ES module interop", () => {
