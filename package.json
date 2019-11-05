@@ -9,9 +9,9 @@
     "hdr-histogram-js": "^1.0.0"
   },
   "devDependencies": {
-    "codecov": "^3.1.0",
+    "codecov": "^3.6.1",
     "hdr-histogram-js": "^1.1.4",
-    "jest": "^23.6.0"
+    "jest": "^24.9.0"
   },
   "scripts": {
     "test": "jest",
