@@ -28,7 +28,7 @@ class RollingWindow {
   }
 
   recordValue(value) {
-    this.chunks[this.pos].recordValue(value);
+    this.chunks[this.pos].recordValue(Math.floor(value));
   }
 
   getSnapshot(givenSnapshot) {
