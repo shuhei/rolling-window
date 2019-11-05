@@ -84,6 +84,52 @@ describe("getSnapshot", () => {
     expect(snapshot2).toBe(snapshot);
     expect(snapshot2.getTotalCount()).toBe(4);
   });
+
+  it("should ignore zero from the minimum non-zero value", () => {
+    rolling = new RollingWindow();
+
+    rolling.recordValue(0);
+    rolling.recordValue(1);
+    jest.runOnlyPendingTimers();
+    rolling.recordValue(0);
+    rolling.recordValue(10);
+
+    const snapshot = rolling.getSnapshot();
+    expect(snapshot.minNonZeroValue).toBe(1);
+  });
+
+  it("should not ignore the minimum non-zero value from a chunk that has a value between 0 and 1", () => {
+    rolling = new RollingWindow();
+
+    rolling.recordValue(0.5);
+    rolling.recordValue(1);
+    jest.runOnlyPendingTimers();
+    rolling.recordValue(10);
+
+    const snapshot = rolling.getSnapshot();
+    expect(snapshot.minNonZeroValue).toBe(1);
+  });
+
+  it("should aggregate minimum non-zero values even if all chunks have a value between 0 and 1", () => {
+    rolling = new RollingWindow();
+
+    rolling.recordValue(0.5);
+    rolling.recordValue(1);
+    jest.runOnlyPendingTimers();
+    rolling.recordValue(0.5);
+    rolling.recordValue(1);
+
+    const snapshot = rolling.getSnapshot();
+    expect(snapshot.minNonZeroValue).toBe(1);
+  });
+
+  it("should throw the error from hdr-histogram-js if a negative value is given", () => {
+    rolling = new RollingWindow();
+
+    expect(() => {
+      rolling.recordValue(-2);
+    }).toThrow(new Error("Histogram recorded value cannot be negative."));
+  });
 });
 
 describe("ES module interop", () => {
