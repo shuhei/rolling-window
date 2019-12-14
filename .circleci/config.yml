@@ -30,6 +30,8 @@ jobs:
             - ~/.cache/yarn
           key: v1-dependencies-{{ checksum "yarn.lock" }}
 
+      - run: yarn lint
+
       # run tests!
       - run: yarn ci
 

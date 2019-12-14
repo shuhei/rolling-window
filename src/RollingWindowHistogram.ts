@@ -8,14 +8,14 @@ export interface RollingWindowHistogramOptions {
 }
 
 export class RollingWindowHistogram {
-  numChunks: number;
-  timeWindow: number;
-  buildHistogram: () => AbstractHistogram;
+  private numChunks: number;
+  private timeWindow: number;
+  private buildHistogram: () => AbstractHistogram;
 
-  chunks: AbstractHistogram[];
-  pos: number;
-  snapshot?: AbstractHistogram;
-  timer: NodeJS.Timer | null = null;
+  private chunks: AbstractHistogram[];
+  private pos: number;
+  private snapshot?: AbstractHistogram;
+  private timer: NodeJS.Timer | null = null;
 
   constructor({
     numChunks = 6,
@@ -40,18 +40,18 @@ export class RollingWindowHistogram {
     this.start();
   }
 
-  rotate = () => {
+  rotate = (): void => {
     this.pos = (this.pos + 1) % this.chunks.length;
     this.chunks[this.pos].reset();
   };
 
-  recordValue(value: number) {
+  recordValue(value: number): void {
     // `Math.floor()` for fixing an issue of min non-zero value aggregation.
     // https://github.com/shuhei/rolling-window/pull/6
     this.chunks[this.pos].recordValue(Math.floor(value));
   }
 
-  getSnapshot(givenSnapshot?: AbstractHistogram) {
+  getSnapshot(givenSnapshot?: AbstractHistogram): AbstractHistogram {
     let snapshot;
     if (givenSnapshot) {
       // Allow users to provide a snapshot. This is useful to save memory
@@ -71,7 +71,7 @@ export class RollingWindowHistogram {
     return snapshot;
   }
 
-  start() {
+  start(): void {
     if (!this.timer) {
       this.timer = setInterval(this.rotate, this.timeWindow / this.numChunks);
       if (this.timer && typeof this.timer.unref === "function") {
@@ -80,7 +80,7 @@ export class RollingWindowHistogram {
     }
   }
 
-  stop() {
+  stop(): void {
     if (this.timer) {
       clearInterval(this.timer);
       this.timer = null;
