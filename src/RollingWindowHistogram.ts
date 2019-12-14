@@ -1,14 +1,29 @@
-const { build } = require("hdr-histogram-js");
-const assert = require("assert");
+import { build, AbstractHistogram } from "hdr-histogram-js";
+import * as assert from "assert";
 
-class RollingWindow {
+export interface RollingWindowHistogramOptions {
+  numChunks?: number;
+  timeWindow?: number;
+  buildHistogram?: () => AbstractHistogram;
+}
+
+export class RollingWindowHistogram {
+  numChunks: number;
+  timeWindow: number;
+  buildHistogram: () => AbstractHistogram;
+
+  chunks: AbstractHistogram[];
+  pos: number;
+  snapshot?: AbstractHistogram;
+  timer: NodeJS.Timer | null = null;
+
   constructor({
     numChunks = 6,
     timeWindow = 1000 * 60,
     buildHistogram = build
   } = {}) {
-    assert(numChunks > 0, "numChunks must be more than 0");
-    assert(timeWindow > 0, "timeWindow must be more than 0");
+    assert.ok(numChunks > 0, "numChunks must be more than 0");
+    assert.ok(timeWindow > 0, "timeWindow must be more than 0");
     assert.equal(
       typeof buildHistogram,
       "function",
@@ -19,27 +34,24 @@ class RollingWindow {
     this.timeWindow = timeWindow;
     this.numChunks = numChunks;
 
-    this.chunks = Array(numChunks + 1)
-      .fill()
-      .map(() => buildHistogram());
+    this.chunks = Array.from({ length: numChunks + 1 }, () => buildHistogram());
     this.pos = 0;
-    this.rotate = this.rotate.bind(this);
 
     this.start();
   }
 
-  rotate() {
+  rotate = () => {
     this.pos = (this.pos + 1) % this.chunks.length;
     this.chunks[this.pos].reset();
-  }
+  };
 
-  recordValue(value) {
+  recordValue(value: number) {
     // `Math.floor()` for fixing an issue of min non-zero value aggregation.
     // https://github.com/shuhei/rolling-window/pull/6
     this.chunks[this.pos].recordValue(Math.floor(value));
   }
 
-  getSnapshot(givenSnapshot) {
+  getSnapshot(givenSnapshot?: AbstractHistogram) {
     let snapshot;
     if (givenSnapshot) {
       // Allow users to provide a snapshot. This is useful to save memory
@@ -62,7 +74,7 @@ class RollingWindow {
   start() {
     if (!this.timer) {
       this.timer = setInterval(this.rotate, this.timeWindow / this.numChunks);
-      if (typeof this.timer.unref === "function") {
+      if (this.timer && typeof this.timer.unref === "function") {
         this.timer.unref();
       }
     }
@@ -75,11 +87,3 @@ class RollingWindow {
     }
   }
 }
-
-// Make TypeScript users believe that this package is an ES module with a default export
-// regardless of `--esModuleInterop`.
-// https://github.com/shuhei/rolling-window/issues/5
-Object.defineProperty(RollingWindow, "__esModule", { value: true });
-RollingWindow.default = RollingWindow;
-
-module.exports = RollingWindow;
