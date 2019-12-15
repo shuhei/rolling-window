@@ -26,7 +26,7 @@ const RollingWindow = require("@shuhei/rolling-window");
 // any given time.
 const rollingWindow = new RollingWindow({
   timeWindow: 1000 * 60,
-  numChunks: 6,
+  numChunks: 6
 });
 
 // Record a value
