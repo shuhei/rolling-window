@@ -2,9 +2,10 @@
   "name": "@shuhei/rolling-window",
   "version": "0.2.0",
   "description": "A rolling time window",
-  "main": "dist/index.js",
   "author": "Shuhei Kagawa <shuhei.kagawa@gmail.com>",
   "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "peerDependencies": {
     "hdr-histogram-js": "^1.0.0"
   },
@@ -24,7 +25,7 @@
     "typescript": "^3.7.3"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --declaration",
     "clean": "rm -rf dist",
     "test": "jest",
     "tdd": "jest --watch",
