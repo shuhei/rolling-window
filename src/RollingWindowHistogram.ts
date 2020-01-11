@@ -59,14 +59,6 @@ export class RollingWindowHistogram {
   }
 
   /**
-   * Rotate the rolling window positions.
-   */
-  rotate = (): void => {
-    this.pos = (this.pos + 1) % this.chunks.length;
-    this.chunks[this.pos].reset();
-  };
-
-  /**
    * Record a value in the current window.
    *
    * @param value A numerical value to record. It must not be negative.
@@ -123,4 +115,12 @@ export class RollingWindowHistogram {
       this.timer = null;
     }
   }
+
+  /**
+   * Rotate the rolling window positions.
+   */
+  private rotate = (): void => {
+    this.pos = (this.pos + 1) % this.chunks.length;
+    this.chunks[this.pos].reset();
+  };
 }
