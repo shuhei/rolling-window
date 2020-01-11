@@ -39,24 +39,24 @@ const p99 = snapshot.getValueAtPercentile(99);
 
 ## API
 
-### new RollingWindow([options])
+### new RollingWindowHistogram([options])
 
 - `options`
   - `timeWindow: number` The length of a time window in milliseconds. **Default: `60000`**
   - `numChunks: number` The number of chunks in the time window. **Default: `6`**
   - `buildHistogram: () => Histogram` A factory function to create a histogram. This will be called multiple times to prepare necessary histograms in the rolling window. Use this to provide custom options to histograms. **Default: `build` from `hdr-histogram-js`**
 
-Creates a rolling window with `numChunks + 1` histograms in it and starts rotating chunks with an interval of `timeWindow / numChunks`.
+Creates a rolling window histogram with `numChunks + 1` histograms in it and starts rotating chunks with an interval of `timeWindow / numChunks`.
 
-### rollingWindow.stop()
+### rollingWindowHistogram.stop()
 
-Stop the rotation timer. When you stop using a rolling window, make sure to call this method to avoid memory leak.
+Stop the rotation timer. When you stop using a rolling window histogram, make sure to call this method to avoid memory leak.
 
-### rollingWindow.recordValue(value)
+### rollingWindowHistogram.recordValue(value)
 
 - `value: number` A numerical value to record. It must not be negative.
 
-### rollingWindow.getSnapshot([snapshot])
+### rollingWindowHistogram.getSnapshot([snapshot])
 
 - `snapshot: Histogram` A histogram to accumulate histograms. It is reset before accumulating histograms. If this is not provided, a `Histogram` is created and kept for reuse.
 - Returns: `Histogram`
