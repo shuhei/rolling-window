@@ -11,8 +11,9 @@
     "clean": "rm -rf dist",
     "test": "jest",
     "tdd": "jest --watch",
-    "ci": "jest --coverage && codecov",
-    "lint": "tsc --noEmit && eslint . --ext .js,.ts"
+    "ci": "jest --coverage",
+    "format": "prettier --write '**/*.{js,ts,yml,yaml,json}'",
+    "lint": "prettier -l '**/*.{js,ts,yml,yaml,json}' && tsc --noEmit && eslint . --ext .js,.ts"
   },
   "peerDependencies": {
     "hdr-histogram-js": "^1.0.0"

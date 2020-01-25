@@ -1,7 +1,7 @@
 # rolling-window
 
-[![CircleCI](https://circleci.com/gh/shuhei/rolling-window.svg?style=svg)](https://circleci.com/gh/shuhei/rolling-window)
-[![codecov](https://codecov.io/gh/shuhei/rolling-window/branch/master/graph/badge.svg)](https://codecov.io/gh/shuhei/rolling-window)
+[![Actions Status](https://github.com/shuhei/rolling-window/workflows/Node CI/badge.svg)](https://github.com/shuhei/rolling-window/actions)
+[![Codecov](https://codecov.io/gh/shuhei/rolling-window/branch/master/graph/badge.svg)](https://codecov.io/gh/shuhei/rolling-window)
 [![npm version](https://badge.fury.io/js/%40shuhei%2Frolling-window.svg)](https://badge.fury.io/js/%40shuhei%2Frolling-window)
 
 Implements "Reset reservoir periodically by chunks" strategy to use [hdr-histogram-js](https://github.com/HdrHistogram/HdrHistogramJS) for monitoring. Inspired by [vladimir-bukhtoyarov/rolling-metrics](https://github.com/vladimir-bukhtoyarov/rolling-metrics).
