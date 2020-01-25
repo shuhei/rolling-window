@@ -1,7 +1,7 @@
-const { build } = require("hdr-histogram-js");
-const RollingWindow = require("..");
+import { build } from "hdr-histogram-js";
+import { RollingWindowHistogram } from "..";
 
-let rolling;
+let rolling: RollingWindowHistogram;
 
 beforeEach(() => {
   jest.useFakeTimers();
@@ -17,7 +17,7 @@ describe("rotation with timer", () => {
     const numChunks = 3;
     const timeWindow = 1000 * 60;
     const chunkWindow = timeWindow / numChunks;
-    rolling = new RollingWindow({
+    rolling = new RollingWindowHistogram({
       numChunks,
       timeWindow
     });
@@ -45,7 +45,7 @@ describe("rotation with timer", () => {
 
 describe("getSnapshot", () => {
   it("should reuse the same snapshot", () => {
-    rolling = new RollingWindow();
+    rolling = new RollingWindowHistogram();
 
     rolling.recordValue(1);
     jest.runOnlyPendingTimers();
@@ -64,7 +64,7 @@ describe("getSnapshot", () => {
   });
 
   it("should use the given snapshot", () => {
-    rolling = new RollingWindow();
+    rolling = new RollingWindowHistogram();
 
     rolling.recordValue(1);
     jest.runOnlyPendingTimers();
@@ -86,7 +86,7 @@ describe("getSnapshot", () => {
   });
 
   it("should ignore zero from the minimum non-zero value", () => {
-    rolling = new RollingWindow();
+    rolling = new RollingWindowHistogram();
 
     rolling.recordValue(0);
     rolling.recordValue(1);
@@ -99,7 +99,7 @@ describe("getSnapshot", () => {
   });
 
   it("should not ignore the minimum non-zero value from a chunk that has a value between 0 and 1", () => {
-    rolling = new RollingWindow();
+    rolling = new RollingWindowHistogram();
 
     rolling.recordValue(0.5);
     rolling.recordValue(1);
@@ -111,7 +111,7 @@ describe("getSnapshot", () => {
   });
 
   it("should aggregate minimum non-zero values even if all chunks have a value between 0 and 1", () => {
-    rolling = new RollingWindow();
+    rolling = new RollingWindowHistogram();
 
     rolling.recordValue(0.5);
     rolling.recordValue(1);
@@ -124,20 +124,10 @@ describe("getSnapshot", () => {
   });
 
   it("should throw the error from hdr-histogram-js if a negative value is given", () => {
-    rolling = new RollingWindow();
+    rolling = new RollingWindowHistogram();
 
     expect(() => {
       rolling.recordValue(-2);
     }).toThrow(new Error("Histogram recorded value cannot be negative."));
-  });
-});
-
-describe("ES module interop", () => {
-  it("should claim to be an ES module", () => {
-    expect(RollingWindow.__esModule).toBe(true);
-  });
-
-  it("should have itself as a default property", () => {
-    expect(RollingWindow.default).toBe(RollingWindow);
   });
 });

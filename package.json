@@ -1,22 +1,37 @@
 {
   "name": "@shuhei/rolling-window",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "A rolling time window",
-  "main": "index.js",
   "author": "Shuhei Kagawa <shuhei.kagawa@gmail.com>",
   "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --declaration",
+    "clean": "rm -rf dist",
+    "test": "jest",
+    "tdd": "jest --watch",
+    "ci": "jest --coverage && codecov",
+    "lint": "tsc --noEmit && eslint . --ext .js,.ts"
+  },
   "peerDependencies": {
     "hdr-histogram-js": "^1.0.0"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.17",
+    "@typescript-eslint/eslint-plugin": "^2.11.0",
+    "@typescript-eslint/parser": "^2.11.0",
     "codecov": "^3.6.1",
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-prettier": "^3.1.1",
     "hdr-histogram-js": "^1.1.4",
-    "jest": "^24.9.0"
-  },
-  "scripts": {
-    "test": "jest",
-    "tdd": "jest --watch",
-    "ci": "jest --coverage && codecov"
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.3"
   },
   "publishConfig": {
     "access": "public"
