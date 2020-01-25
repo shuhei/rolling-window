@@ -1,6 +1,6 @@
 # rolling-window
 
-[![Actions Status](https://github.com/shuhei/rolling-window/workflows/Node CI/badge.svg)](https://github.com/shuhei/rolling-window/actions)
+[![Actions Status](https://github.com/shuhei/rolling-window/workflows/NodeCI/badge.svg)](https://github.com/shuhei/rolling-window/actions)
 [![Codecov](https://codecov.io/gh/shuhei/rolling-window/branch/master/graph/badge.svg)](https://codecov.io/gh/shuhei/rolling-window)
 [![npm version](https://badge.fury.io/js/%40shuhei%2Frolling-window.svg)](https://badge.fury.io/js/%40shuhei%2Frolling-window)
 
