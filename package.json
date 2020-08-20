@@ -1,6 +1,6 @@
 {
   "name": "@shuhei/rolling-window",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A rolling time window",
   "author": "Shuhei Kagawa <shuhei.kagawa@gmail.com>",
   "license": "MIT",
