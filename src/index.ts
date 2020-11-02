@@ -1,4 +1,4 @@
 export {
   RollingWindowHistogram,
-  RollingWindowHistogramOptions
+  RollingWindowHistogramOptions,
 } from "./RollingWindowHistogram";

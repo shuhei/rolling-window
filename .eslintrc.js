@@ -5,22 +5,22 @@ module.exports = {
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
   ],
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: "module"
+    sourceType: "module",
   },
   env: {
-    node: true
+    node: true,
   },
   overrides: [
     {
       files: ["*/__tests__/*.ts"],
       env: {
-        "jest/globals": true
+        "jest/globals": true,
       },
-      extends: ["plugin:jest/recommended", "plugin:jest/style"]
-    }
-  ]
+      extends: ["plugin:jest/recommended", "plugin:jest/style"],
+    },
+  ],
 };
