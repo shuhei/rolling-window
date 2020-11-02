@@ -10,8 +10,16 @@ See [rolling-metrics' documentation](https://github.com/vladimir-bukhtoyarov/rol
 
 ## Install
 
+With `hdr-histogram-js@2`:
+
 ```sh
 npm install -S hdr-histogram-js @shuhei/rolling-window
+```
+
+With `hdr-histogram-js@1`:
+
+```sh
+npm install -S hdr-histogram-js@1 @shuhei/rolling-window@^0.2.1
 ```
 
 ## Usage
