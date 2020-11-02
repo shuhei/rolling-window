@@ -5,6 +5,7 @@
 ### Changed
 
 - Support `hdr-histogram-js@2`, which is [not compatible with `hdr-histogram-js@1`](https://github.com/HdrHistogram/HdrHistogramJS#migrating-from-v1-to-v2).
+- Drop support for Node.js 8.x
 
 ## 0.2.1
 
