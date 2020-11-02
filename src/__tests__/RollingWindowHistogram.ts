@@ -35,7 +35,7 @@ describe("rotation with timer", () => {
     rolling.recordValue(32);
 
     const snapshot = rolling.getSnapshot();
-    expect(snapshot.getTotalCount()).toBe(4);
+    expect(snapshot.totalCount).toBe(4);
     expect(snapshot.getValueAtPercentile(0)).toBe(4);
     expect(snapshot.getValueAtPercentile(30)).toBe(8);
     expect(snapshot.getValueAtPercentile(60)).toBe(16);
@@ -54,13 +54,13 @@ describe("getSnapshot", () => {
     rolling.recordValue(100);
 
     const snapshot1 = rolling.getSnapshot();
-    expect(snapshot1.getTotalCount()).toBe(3);
+    expect(snapshot1.totalCount).toBe(3);
 
     rolling.recordValue(1000);
 
     const snapshot2 = rolling.getSnapshot();
     expect(snapshot2).toBe(snapshot1);
-    expect(snapshot2.getTotalCount()).toBe(4);
+    expect(snapshot2.totalCount).toBe(4);
   });
 
   it("should use the given snapshot", () => {
@@ -76,13 +76,13 @@ describe("getSnapshot", () => {
 
     const snapshot1 = rolling.getSnapshot(snapshot);
     expect(snapshot1).toBe(snapshot);
-    expect(snapshot1.getTotalCount()).toBe(3);
+    expect(snapshot1.totalCount).toBe(3);
 
     rolling.recordValue(1000);
 
     const snapshot2 = rolling.getSnapshot(snapshot);
     expect(snapshot2).toBe(snapshot);
-    expect(snapshot2.getTotalCount()).toBe(4);
+    expect(snapshot2.totalCount).toBe(4);
   });
 
   it("should ignore zero from the minimum non-zero value", () => {

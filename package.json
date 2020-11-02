@@ -16,7 +16,7 @@
     "lint": "prettier -l '**/*.{js,ts,yml,yaml,json}' && tsc --noEmit && eslint . --ext .js,.ts"
   },
   "peerDependencies": {
-    "hdr-histogram-js": "^1.0.0"
+    "hdr-histogram-js": "^2.0.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",
@@ -28,7 +28,7 @@
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-jest": "^23.6.0",
     "eslint-plugin-prettier": "^3.1.1",
-    "hdr-histogram-js": "^1.1.4",
+    "hdr-histogram-js": "^2.0.1",
     "jest": "^24.9.0",
     "prettier": "^1.19.1",
     "ts-jest": "^24.2.0",

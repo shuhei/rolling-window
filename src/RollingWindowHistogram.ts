@@ -1,4 +1,4 @@
-import { build, AbstractHistogram } from "hdr-histogram-js";
+import { build, Histogram } from "hdr-histogram-js";
 import * as assert from "assert";
 
 export interface RollingWindowHistogramOptions {
@@ -19,17 +19,17 @@ export interface RollingWindowHistogramOptions {
    *
    * Default: build from hdr-histogram-js
    */
-  buildHistogram?: () => AbstractHistogram;
+  buildHistogram?: () => Histogram;
 }
 
 export class RollingWindowHistogram {
   private numChunks: number;
   private timeWindow: number;
-  private buildHistogram: () => AbstractHistogram;
+  private buildHistogram: () => Histogram;
 
-  private chunks: AbstractHistogram[];
+  private chunks: Histogram[];
   private pos: number;
-  private snapshot?: AbstractHistogram;
+  private snapshot?: Histogram;
   private timer: NodeJS.Timer | null = null;
 
   /**
@@ -74,7 +74,7 @@ export class RollingWindowHistogram {
    *
    * @param givenSnapshot An optional histogram to accumulate histograms. It is reset before accumulating histograms. If this is not provided, a Histogram is created and kept for reuse.
    */
-  getSnapshot(givenSnapshot?: AbstractHistogram): AbstractHistogram {
+  getSnapshot(givenSnapshot?: Histogram): Histogram {
     let snapshot;
     if (givenSnapshot) {
       // Allow users to provide a snapshot. This is useful to save memory
