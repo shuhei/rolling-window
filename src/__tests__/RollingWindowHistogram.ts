@@ -19,7 +19,7 @@ describe("rotation with timer", () => {
     const chunkWindow = timeWindow / numChunks;
     rolling = new RollingWindowHistogram({
       numChunks,
-      timeWindow
+      timeWindow,
     });
 
     rolling.recordValue(1);

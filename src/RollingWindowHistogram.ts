@@ -38,7 +38,7 @@ export class RollingWindowHistogram {
   constructor({
     numChunks = 6,
     timeWindow = 1000 * 60,
-    buildHistogram = build
+    buildHistogram = build,
   } = {}) {
     assert.ok(numChunks > 0, "numChunks must be more than 0");
     assert.ok(timeWindow > 0, "timeWindow must be more than 0");
